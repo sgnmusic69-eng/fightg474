@@ -1,21 +1,35 @@
 {
-    // 使用 IntelliSense 了解相关属性。 
-    // 悬停以查看现有属性的描述。
-    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-    
         {
-            "type": "node",
+            "name": "STM32G474 Debug (OpenOCD)",
+            "type": "cortex-debug",
             "request": "launch",
-            "name": "Launch Program",
-            "skipFiles": [
-                "<node_internals>/**"
+            "cwd": "${workspaceFolder}",
+            "executable": "${command:cmake.launchTargetPath}",
+            "servertype": "openocd",
+            "serverpath": "openocd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32g4x.cfg"
             ],
-            "program": "${workspaceFolder}\\Core\\Src\\main.c",
-            "outFiles": [
-                "${workspaceFolder}/**/*.js"
-            ]
+            "svdFile": "${workspaceFolder}/Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g474xx.h",
+            "runToEntryPoint": "main",
+            "preLaunchTask": "CMake: Build",
+            "showDevDebugOutput": "raw"
+        },
+        {
+            "name": "STM32G474 Debug (J-Link)",
+            "type": "cortex-debug",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "executable": "${command:cmake.launchTargetPath}",
+            "servertype": "jlink",
+            "device": "STM32G474VE",
+            "interface": "swd",
+            "svdFile": "${workspaceFolder}/Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g474xx.h",
+            "runToEntryPoint": "main",
+            "preLaunchTask": "CMake: Build"
         }
     ]
 }
